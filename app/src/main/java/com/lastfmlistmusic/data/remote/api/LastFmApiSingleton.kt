@@ -1,8 +1,9 @@
-package com.lastfmlistmusic
+package com.lastfmlistmusic.data.remote.api
 
+import com.google.gson.FieldNamingPolicy
 import com.google.gson.GsonBuilder
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
-import com.lastfmlistmusic.api.LastFmApi
+import com.lastfmlistmusic.LASTFM_BASE_URL
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -34,7 +35,13 @@ open class LastFmApiSingleton {
         val httpInterceptor = HttpLoggingInterceptor()
         httpInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY)
         val okHttpClient = OkHttpClient.Builder().addInterceptor(httpInterceptor).build()
+        val gson = GsonBuilder().setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES).create()
 
-        return Retrofit.Builder().addConverterFactory(GsonConverterFactory.create(GsonBuilder().create())).client(okHttpClient).addCallAdapterFactory(CoroutineCallAdapterFactory()).baseUrl(LASTFM_BASE_URL).build()
+        return Retrofit.Builder()
+            .addConverterFactory(GsonConverterFactory.create(gson))
+            .client(okHttpClient)
+            .addCallAdapterFactory(CoroutineCallAdapterFactory())
+            .baseUrl(LASTFM_BASE_URL)
+            .build()
     }
 }

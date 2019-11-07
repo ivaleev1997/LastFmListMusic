@@ -1,12 +1,15 @@
-package com.lastfmlistmusic
+package com.lastfmlistmusic.ui
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.lastfmlistmusic.data.LastFmTrack
+import com.lastfmlistmusic.data.remote.api.LastFmApiSingleton
+import com.lastfmlistmusic.data.LastFmAppRepository
+import com.lastfmlistmusic.data.remote.model.LastFmTrack
 import kotlinx.coroutines.*
 
 class MainActivityViewModel: ViewModel() {
-    private val repository = LastFmAppRepository(LastFmApiSingleton().getInstance())
+    private val repository =
+        LastFmAppRepository(LastFmApiSingleton().getInstance())
     private val viewModelJob = SupervisorJob()
     private val uiScope = CoroutineScope(Dispatchers.Main + viewModelJob)
     val tracksLiveData: MutableLiveData<List<LastFmTrack>>? = MutableLiveData()

@@ -1,4 +1,4 @@
-package com.lastfmlistmusic.api
+package com.lastfmlistmusic.data.remote.api
 
 import kotlinx.coroutines.Deferred
 import retrofit2.Response

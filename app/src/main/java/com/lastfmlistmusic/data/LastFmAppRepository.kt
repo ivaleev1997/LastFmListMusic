@@ -1,7 +1,7 @@
-package com.lastfmlistmusic
+package com.lastfmlistmusic.data
 
-import com.lastfmlistmusic.api.LastFmApi
-import com.lastfmlistmusic.data.LastFmTrack
+import com.lastfmlistmusic.data.remote.api.LastFmApi
+import com.lastfmlistmusic.data.remote.model.LastFmTrack
 
 class LastFmAppRepository(private val api: LastFmApi) {
 
