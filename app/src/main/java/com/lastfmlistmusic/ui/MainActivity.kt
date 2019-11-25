@@ -37,7 +37,6 @@ class MainActivity : AppCompatActivity(), TopTrackAdapter.ICardViewCallBack {
         recyclerView.adapter = topTrackAdapter
 
         mainActivityViewModel.loadData()
-
     }
 
     override fun onCardViewClicked(track: LastFmTrack) {
