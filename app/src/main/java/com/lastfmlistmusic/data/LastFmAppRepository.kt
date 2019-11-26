@@ -7,7 +7,7 @@ class LastFmAppRepository(private val api: LastFmApi) {
 
     suspend fun loadMusic(): List<LastFmTrack>?{
         var result: List<LastFmTrack>? = null
-        var call = api.getTopTracks()
+        var call = api.getTopTracksAsync()
         var response = call.await()
         if (response.isSuccessful) {
             println(response.body()!!.tracks.listLastFmTopTracks)
