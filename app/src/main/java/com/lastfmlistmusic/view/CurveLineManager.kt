@@ -4,9 +4,9 @@ import android.content.Context
 import com.lastfmlistmusic.view.data.AnimationValue
 import com.lastfmlistmusic.view.data.DrawData
 
-class CurveLineManager(context: Context, private val animationListener: AnimationListener): AnimationManager.AnimationListener {
+class CurveLineManager(context: Context, private val animationDuration: Long , private val animationListener: AnimationListener): AnimationManager.AnimationListener {
 
-    private val animationManager = AnimationManager(this)
+    private val animationManager = AnimationManager(this, animationDuration)
     val drawer = Drawer(context)
 
     fun drawAnimation(drawDataList: List<DrawData>) {

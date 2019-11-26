@@ -2,5 +2,6 @@
 <resources>
     <declare-styleable name="CurveLfView">
         <attr name="inverse" format="boolean"/>
+        <attr name="duration" format="integer"/>
     </declare-styleable>
 </resources>

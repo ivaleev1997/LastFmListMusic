@@ -9,10 +9,26 @@ import com.lastfmlistmusic.view.data.DrawData
 
 class CurveLfView(context: Context, attributeSet: AttributeSet) : View(context, attributeSet), CurveLineManager.AnimationListener {
     private lateinit var drawDataList: List<DrawData>
-    private val curveLineManager = CurveLineManager(context, this)
-    private var isInverse = checkInverse(attributeSet)
+    private val curveLineManager: CurveLineManager
+
+    private var isInverse: Boolean = false
     private var viewHeight = 0
     private var viewWidth = 0
+    private var animationDuration = 200L
+
+    init {
+        getSetupedAttributes(attributeSet)
+        curveLineManager = CurveLineManager(context, animationDuration, this)
+    }
+
+    private fun getSetupedAttributes(attrs: AttributeSet) {
+        val typedArray = context.theme.obtainStyledAttributes(attrs, R.styleable.CurveLfView,
+            0, 0)
+        isInverse = typedArray.getBoolean(R.styleable.CurveLfView_inverse, false)
+
+        animationDuration = typedArray.getInt(R.styleable.CurveLfView_duration, 200).toLong()
+    }
+
 
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
         viewWidth = MeasureSpec.getSize(widthMeasureSpec)
@@ -25,17 +41,13 @@ class CurveLfView(context: Context, attributeSet: AttributeSet) : View(context, 
         curveLineManager.drawer.draw(canvas)
     }
 
-    fun checkInverse(attrs: AttributeSet): Boolean {
-        val result: Boolean
-        val typedArray = context.theme.obtainStyledAttributes(attrs, R.styleable.CurveLfView,
-            0, 0)
-        result = typedArray.getBoolean(R.styleable.CurveLfView_inverse, false)
-
-        return result
-    }
 
     override fun animationUpdate() {
         invalidate()
+    }
+
+    private fun initDrawDataList() {
+        drawDataList = createDrawDataList(viewWidth, viewHeight, isInverse)
     }
 
     fun start() {
@@ -43,9 +55,5 @@ class CurveLfView(context: Context, attributeSet: AttributeSet) : View(context, 
             initDrawDataList()
             curveLineManager.drawAnimation(drawDataList)
         }
-    }
-
-    fun initDrawDataList() {
-        drawDataList = createDrawDataList(viewWidth, viewHeight, isInverse)
     }
 }

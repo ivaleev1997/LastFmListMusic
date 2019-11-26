@@ -8,9 +8,8 @@ import android.view.animation.AccelerateDecelerateInterpolator
 import com.lastfmlistmusic.view.data.AnimationValue
 import com.lastfmlistmusic.view.data.DrawData
 
-class AnimationManager(val animationListener: AnimationListener) {
+class AnimationManager(val animationListener: AnimationListener, val animationDuration: Long) {
 
-    private val ANIMATION_DURATION = 200L
     private val PROPERTY_X = "propertyX"
     private val PROPERTY_Y = "propertyY"
     private val interpolator = AccelerateDecelerateInterpolator()
@@ -41,7 +40,7 @@ class AnimationManager(val animationListener: AnimationListener) {
 
         return ValueAnimator().apply {
             setValues(propertyX, propertyY)
-            duration = ANIMATION_DURATION
+            duration = animationDuration
             interpolator = this@AnimationManager.interpolator
             addUpdateListener {
                 onAnimatorUpdate(it)
