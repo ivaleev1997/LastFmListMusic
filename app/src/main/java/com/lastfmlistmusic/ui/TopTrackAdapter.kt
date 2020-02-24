@@ -8,9 +8,11 @@ import com.lastfmlistmusic.R
 import com.lastfmlistmusic.data.remote.model.LastFmTrack
 import com.lastfmlistmusic.databinding.ItemTopTracksBinding
 
-class TopTrackAdapter(val iCardViewCallBack: ICardViewCallBack): RecyclerView.Adapter<TopTrackAdapter.ViewHolder>() {
+class TopTrackAdapter(
+    private val onClickCallBack: (LastFmTrack) -> Unit
+): RecyclerView.Adapter<TopTrackAdapter.ViewHolder>() {
 
-    var listTopTracks: List<LastFmTrack>? = null
+    var listTopTracks: List<LastFmTrack> = listOf()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val context = parent.context
@@ -22,14 +24,12 @@ class TopTrackAdapter(val iCardViewCallBack: ICardViewCallBack): RecyclerView.Ad
     }
 
     override fun getItemCount(): Int {
-        return listTopTracks?.size ?: 0
+        return listTopTracks.size
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        if (listTopTracks?.get(position) != null) {
-            holder.itemTopTracksBinding.track = listTopTracks?.get(position)
-            holder.itemTopTracksBinding.cardView.setOnClickListener{ iCardViewCallBack.onCardViewClicked(listTopTracks!!.get(position)) }
-        }
+        holder.itemTopTracksBinding.track = listTopTracks.get(position)
+        holder.itemTopTracksBinding.cardView.setOnClickListener{ onClickCallBack(listTopTracks[position]) }
 
     }
 

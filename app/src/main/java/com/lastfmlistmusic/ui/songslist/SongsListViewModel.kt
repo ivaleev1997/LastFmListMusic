@@ -1,18 +1,25 @@
-package com.lastfmlistmusic.ui
+package com.lastfmlistmusic.ui.songslist
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.lastfmlistmusic.data.LastFmAppRepository
-import com.lastfmlistmusic.data.remote.api.LastFmApiSingleton
 import com.lastfmlistmusic.data.remote.model.LastFmTrack
 import kotlinx.coroutines.*
+import javax.inject.Inject
+import javax.inject.Singleton
 
-class MainActivityViewModel: ViewModel() {
-    private val repository =
-        LastFmAppRepository(LastFmApiSingleton().getInstance())
+@Singleton
+class SongsListViewModel
+    @Inject constructor(
+    private val repository: LastFmAppRepository
+): ViewModel() {
     private val viewModelJob = SupervisorJob()
     private val uiScope = CoroutineScope(Dispatchers.Main + viewModelJob)
-    val tracksLiveData: MutableLiveData<List<LastFmTrack>>? = MutableLiveData()
+
+    val tracksLiveData: LiveData<List<LastFmTrack>>
+        get() = _tracksLiveData
+    private val _tracksLiveData = MutableLiveData<List<LastFmTrack>>()
 
     override fun onCleared() {
         super.onCleared()
@@ -24,7 +31,7 @@ class MainActivityViewModel: ViewModel() {
             val job = withContext(Dispatchers.IO) {
                 repository.loadMusic()
             }
-            tracksLiveData?.postValue(job)
+            _tracksLiveData.value = job
         }
     }
 }

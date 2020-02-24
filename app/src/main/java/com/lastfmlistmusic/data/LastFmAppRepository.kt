@@ -2,8 +2,14 @@ package com.lastfmlistmusic.data
 
 import com.lastfmlistmusic.data.remote.api.LastFmApi
 import com.lastfmlistmusic.data.remote.model.LastFmTrack
+import javax.inject.Inject
+import javax.inject.Singleton
 
-class LastFmAppRepository(private val api: LastFmApi) {
+@Singleton
+class LastFmAppRepository
+@Inject constructor(
+        private val api: LastFmApi
+) {
 
     suspend fun loadMusic(): List<LastFmTrack>?{
         var result: List<LastFmTrack>? = null
