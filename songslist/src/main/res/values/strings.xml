@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">LastFmListMusic</string>
+    <string name="artist_name">Artist:</string>
+    <string name="play_counts">Play counts:</string>
+    <string name="listeners">Listeners:</string>
+    <string name="track_name">Track name:</string>
+</resources>

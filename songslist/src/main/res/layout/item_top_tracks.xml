@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView
+        android:id="@+id/cardView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginStart="8dp"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintVertical_bias="0.0"
+        android:layout_marginTop="8dp"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:android="http://schemas.android.com/apk/res/android">
+
+            <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginBottom="15dp">
+
+                <ImageView
+                        android:id="@+id/trackImage"
+                        android:layout_width="65dp"
+                        android:layout_height="65dp"
+                        app:srcCompat="@drawable/ic_error_outline_black_24dp"
+                        android:layout_alignParentStart="true"
+                        android:layout_alignParentTop="true"
+                        android:layout_marginTop="25dp"
+                        android:layout_marginStart="19dp" />
+                <TextView
+                        android:text="@{track.name}"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/trackName"
+                        android:layout_marginStart="101dp"
+                        android:layout_alignStart="@+id/trackImage"
+                        android:layout_alignTop="@+id/trackImage"
+                        android:layout_marginTop="8dp"
+                        android:textSize="15sp"/>
+                <TextView
+                        android:text="@{track.artist.name}"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/trackArtist"
+                        android:layout_marginStart="0dp"
+                        android:layout_alignStart="@+id/trackName"
+                        android:layout_marginTop="-20dp"
+                        android:layout_below="@+id/trackImage"
+                        android:textSize="12sp"/>
+            </RelativeLayout>
+</androidx.cardview.widget.CardView>
